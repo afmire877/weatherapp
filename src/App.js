@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+
+const API_KEY = "55df7334f2464a840579ef9dbcf83faf"
 
 function App() {
+
+  const [value, setValue] = useState();
+
+  useEffect(() => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=Hargeisa&appid=55df7334f2464a840579ef9dbcf83faf`)
+    .then((res) => res.json())
+    .then((data) =>  {
+      console.log(data)
+      setValue(data)
+    })
+  }, [])
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {value !== undefined ? <p>{value.name}</p> : <p>Loading...</p> }
+      <p>City: </p>
+      <p>Sunrise: </p>
+      <p>Sunset: </p>
+      <p>Description: </p>
+      <p>Humidity: </p>
+      <p>Day: </p>
+      <p>Date: </p>
     </div>
   );
 }
